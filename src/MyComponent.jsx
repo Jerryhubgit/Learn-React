@@ -1,20 +1,42 @@
-import React, {useState} from 'react'
+import {useState} from 'react'
 
 function MyComponent(){
 
-    const [name, setName] = useState()
+    let [name, setName] = useState("Guest")
+    let [age, setAge] = useState(0)
+    let [isEmployed, setEmployed] = useState(false)
 
     const updateName = () => {
-        name = 'Spongebob'
+        setName('Squarepants')
+    }
+
+    const incrementAge = () => {
+        
+        setAge(++age)
+    }
+
+    const updateEmployed = () => {
+        setEmployed(!isEmployed)
+        console.log(isEmployed)
     }
 
     return(
-        <div>
-            <p>Name: {name}</p>
-            <button onclick={updateName}>Set Name
+        <>
+            <div>
+                <p>Name: {name}</p>
+                <button onClick={updateName}>Set name</button>
+            </div>
+            
+            <div>
+                <p>Age: {age}</p>
+                <button onClick={incrementAge}>Set age</button>
+            </div>
 
-            </button>
-        </div>
+            <div>
+                <p>Are you Employed: {isEmployed == true ? 'Yes' : 'No'}</p>
+                <button onClick={updateEmployed}>{isEmployed == true ? 'get fired': 'get a job'}</button>
+            </div>
+        </>
     )
 }
 
