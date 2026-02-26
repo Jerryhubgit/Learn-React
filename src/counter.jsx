@@ -1,10 +1,28 @@
+import { useState } from 'react'
+import './Counter.css'
 
+function Counter(){
 
-function Counter(props){
-
+    let [digit, setDigit] = useState(0)
+    const increment = () => {
+        setDigit(++digit)
+    }
+    const reset = () => {
+        setDigit(0)
+    }
+    const decrement = () => {
+        setDigit(--digit)
+    }
     return (
-        <button onClick={props.action}>{props.name}</button>
+        <div className='counterContainer'>
+            <h1>{digit}</h1>
+            <div className="buttons">
+                <button onClick={decrement}>Decrease</button>
+                <button onClick={reset}>Reset</button>
+                <button onClick={increment}>Increase</button>
+            </div>
+        </div>
     )
 }
 
-export default Counter 
+export default Counter

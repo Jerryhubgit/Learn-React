@@ -1,0 +1,24 @@
+.counterContainer{
+    background-color: white;
+    padding: 20px;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 10px ;
+    box-shadow: 0 5px 0 rgba(0,0,0,.7);
+
+}
+.counterContainer h1{
+    text-align: center;
+    font-size: 7rem;
+    line-height: .1px;
+}
+
+.buttons{
+    display: flex;
+    gap: 1rem;
+}
+.buttons button:nth-child(1){
+    background-color: red;
+}
+.buttons button:nth-child(3){
+    background-color: green;
+}
