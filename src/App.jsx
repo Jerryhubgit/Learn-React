@@ -1,12 +1,11 @@
-import Profile from './profile.jsx'
 
-
+import MyComponent from './MyComponent.jsx'
 
 function App(){
 
     return (
         <>
-            <Profile></Profile>
+            <MyComponent />
         </>
     )
 }
