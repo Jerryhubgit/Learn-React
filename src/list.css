@@ -6,6 +6,7 @@
     box-shadow: 0 5px 0 rgba(0,0,0,.5);
     background-color: white;
     margin-bottom: 50px;
+    width: 200px;
 }
 div h2{
     color: hsl(0, 0%, 15%);
