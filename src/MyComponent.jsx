@@ -1,22 +1,22 @@
 import { useState } from 'react'
 
-
 function MyComponent(){
-
-    let [car , setCar] = useState({name: "Totota", year: 2026, model: 'Mustang'})
-
-    const changeYear = (e) => setCar({...car , year: e.target.value})
-    const changeName = (e) => setCar({...car, name: e.target.value})
-    const changeModel = (e) => setCar({...car, model: e.target.value})
-
+    const foodsList = ['apple', 'orange', 'pawpaw', 'cigarette', 'risla']
+    const [foods, setFood] = useState()
+    const addFood = () => {
+        let newFood = document.getElementById('foodInput').value
+        setFood([...foodsList,  newFood])
+    }
+    
+    const newArray = foodsList.map((food, index) => <li key={index}>{food}</li>)
     return (
-
         <div>
-            <p>Your Favourite car is {car.year} {car.name} {car.model} </p>
-
-            <input type="number" onChange={changeYear} />
-            <input type="text"  onChange={changeName}/>
-            <input type="text" onChange={changeModel} />
+            <h1>List of food</h1>
+            <ul>
+                {newArray}
+            </ul>
+            <input type="text" id="foodInput" />
+            <button onClick={() => addFood()}>Enter food</button>
         </div>
     )
 }
