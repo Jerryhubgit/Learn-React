@@ -67,4 +67,6 @@ button:focus-visible {
 
 input{
   padding: 10px 20px;
+  width: 200px;
+  margin: 10px;
 }

@@ -1,27 +1,26 @@
 import { useState } from 'react'
 
 function MyComponent(){
-    const foodsList = ['apple', 'orange', 'pawpaw', 'cigarette', 'risla']
-    const [foods, setFood] = useState(foodsList)
-    const addFood = () => {
-        let newFood = document.getElementById('foodInput').value
-        setFood([...foods,  newFood])
-        document.getElementById('foodInput').value = ""
+    
+    const carsList = ["mercedes", "toyota", "Ferrari", "BMW"]
+    const [cars, setCar] = useState(carsList)
+    
+    const addCar = () => {
+        const newCar = document.getElementById('input').value;
+        setCar([...cars, newCar])
+
+        document.getElementById('input').value = "";
+
     }
 
-    const deleteFood = (index) => {
-        setFood(foods.filter((_, i) => i !== index))
-    }
-    
-    const newArray = foods.map((food, index) => <li key={index} onClick={() => deleteFood(index)}>{food}</li>)
-    return (
+    return(
         <div>
-            <h1>List of food</h1>
+            <h1>List of Cars</h1>
             <ul>
-                {newArray}
+                {cars.map((car, index) => <li key={index}>{car}</li>)}
             </ul>
-            <input type="text" id="foodInput" />
-            <button onClick={() => addFood()}>Enter food</button>
+            <input type="text" id='input'/>
+            <button onClick={addCar}>Enter car</button>
         </div>
     )
 }
