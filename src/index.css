@@ -54,3 +54,7 @@ button{
 .todo p{
   color: hsl(0, 0%, 10%);
 }
+
+.effect button{
+  margin-right: 10px;
+}
