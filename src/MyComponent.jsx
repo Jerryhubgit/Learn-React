@@ -1,40 +1,48 @@
 import { useState } from 'react'
 
 function MyComponent(){
-    const [task, setTask] = useState('')
-    const [tasksList, setList] = useState(['washing', 'cooking'])
 
-    const getTask = (e) => {
-        let newTask = e.target.value; 
+    let [taskEl, setTask] = useState()
+    let [taskList, setTaskList] = useState(['hamburger', 'squiward'])
+
+    const getTask = (e) =>{
+        
+        let newTask = e.target.value
         setTask(newTask)
     }
 
     const addTask = () => {
-        setList([...tasksList, task])
-        document.querySelector('input').value = ""
-        console.log(tasksList)
+        if(Boolean(taskEl) == false){
+            return 
+        }
+        console.log(taskEl)
+        setTaskList([...taskList, taskEl])
+        document.querySelector('input').value = ''
     }
 
-    const deleteTask = (index) => {
-        setList(tasksList.filter((_, i) => i !== index))
+    const deleteTask = (e) => {
+        let index = Number(e.target.parentElement .id)
+        setTaskList(taskList.filter((_, i) => i !== index))
     }
 
     return(
-        <div className="todoContainer">
+        <div className='todoApp'>
             <h1>Todo</h1>
             <div className="input">
-                <input type="text" onChange={getTask} />
-                <button onClick={addTask}>Add item</button>
+                <input type="text" onChange={getTask}/>
+                <button onClick={addTask}>Add task</button>
             </div>
-            <div className="todo_list">
-                {tasksList.map((task,index) => 
-                            <div className="todo" onClick={() => deleteTask(index)} key={index} id={index}>
-                                <p>{task}</p>
-                                <button>delete</button>
-                            </div>)}
+            <div className="todoList">
+                {taskList.map((task, index) => (
+                    <div className="todo" key={index} id={index}>
+                        <p>{task}</p>
+                        <button onClick={deleteTask}>delete</button>
+                    </div>
+                ))}
             </div>
+
         </div>
     )
 }
 
-export default MyComponent
+export default MyComponent;
