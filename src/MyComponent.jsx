@@ -36,7 +36,10 @@ function MyComponent(){
                 {taskList.map((task, index) => (
                     <div className="todo" key={index} id={index}>
                         <p>{task}</p>
-                        <button onClick={deleteTask}>delete</button>
+                        <div className="buttons">
+                            <button onClick={deleteTask} id='delete'>delete</button>
+                            <button id='edit'>edit</button>
+                        </div>
                     </div>
                 ))}
             </div>

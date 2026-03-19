@@ -5,8 +5,9 @@ function App(){
 
     return (
         <>
-            {/* <MyComponent />  */}
-            <Effect />
+            <MyComponent /> 
+            
+            {/* <Effect /> */}
         </>
     )
 }
