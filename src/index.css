@@ -50,6 +50,13 @@ button{
   margin-bottom: 15px;
   gap: 2rem;
 }
+.todo p{
+  cursor: pointer;
+  font-weight: 500;
+}
+.todo p:hover{
+  color: hsl(0, 0%, 50%)
+}
 .buttons{
   display: flex;
   gap: .5rem;

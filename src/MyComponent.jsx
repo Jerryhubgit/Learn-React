@@ -62,10 +62,10 @@ function MyComponent(){
             <div className="todo-list">
                 {tasksList.map((task, index) => 
                     <div className="todo" key={index}>
-                        <p>{task}</p>
+                        <p onClick={() => edit(index)} >{task}</p>
                         <div className="buttons">
                             <button onClick={() => deleteTask(index)} id='delete'>delete</button>
-                            <button id='edit' onClick={() => edit(index)}>edit</button>
+                            {/* <button id='edit' onClick={() => edit(index)}>edit</button> */}
                             {/* <div className="move-btns">
                                 <button>up</button>
                                 <button>down</button>
