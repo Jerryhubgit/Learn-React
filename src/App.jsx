@@ -1,10 +1,10 @@
 import MyComponent from './MyComponent.jsx'
-import Effect from './useEffect.jsx'
 
 function App(){
 
     return (
         <>
+            {/* <Test /> */}
             <MyComponent /> 
             
             {/* <Effect /> */}
