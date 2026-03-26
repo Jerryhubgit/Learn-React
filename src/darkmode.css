@@ -1,0 +1,63 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    color: white;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    outline: none;
+}
+body{
+    background-color: hsl(0, 0%, 10%);
+    display: flex;
+    margin: 10%;
+    /* align-items: center; */
+    justify-content: center;
+}
+p{
+    cursor: pointer;
+}
+.todo-app{
+    width: 500px ;
+}
+.inputs{
+    width: 100%;
+    display: flex;
+    box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+    margin: 20px 0 40px 0;
+    padding: 8px;
+    background-color: hsl(0, 0%, 70%);
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 60px;
+    background-color: hsl(0, 0%, 20%);
+}
+.inputs button{
+    border-radius: 60px;
+}
+input{
+    flex: 1;
+    color: black;
+    padding: 15px;
+    font-size: 16px;
+    background-color: transparent;
+    border: none;
+    color: white;
+}
+.todo{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+.todo:hover{
+    background-color: hsl(0, 0%, 15%);
+    border: none;
+}
+button{
+    background-color: hsl(0, 0%, 5%);
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}

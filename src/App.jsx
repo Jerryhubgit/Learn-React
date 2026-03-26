@@ -1,4 +1,5 @@
 import MyComponent from './MyComponent.jsx'
+import WindowResize from './window.jsx'
 
 function App(){
 
@@ -7,6 +8,7 @@ function App(){
             {/* <Test /> */}
             <MyComponent /> 
             
+            {/* <WindowResize /> */}
             {/* <Effect /> */}
         </>
     )

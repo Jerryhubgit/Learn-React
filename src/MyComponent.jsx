@@ -1,11 +1,12 @@
-import { useState } from 'react'
-import './index.css'
-
+import { useState, useEffect } from 'react'
+// import './index.css'
+import './darkmode.css'
 
 function MyComponent(){
     const [tasksList, setTaskList] = useState(['writing', 'interving interns', 'reshing all commits'])
     const [task, setTask] = useState()
     let [position, setPosition] = useState()
+
 
     function edit(index){
         setPosition(index)
@@ -51,6 +52,9 @@ function MyComponent(){
         setTaskList(updateTasksList)
     }
 
+
+    
+
     return(
         <div className="todo-app">
             <h1>TodoList</h1>
@@ -60,7 +64,7 @@ function MyComponent(){
             </div>
             
             <div className="todo-list">
-                {tasksList.map((task, index) => 
+                {tasksList.reverse().map((task, index) => 
                     <div className="todo" key={index}>
                         <p onClick={() => edit(index)} >{task}</p>
                         <div className="buttons">
