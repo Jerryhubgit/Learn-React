@@ -1,17 +1,15 @@
-import MyComponent from './MyComponent.jsx'
-import WindowResize from './window.jsx'
+import "./index.css"
+import Button from "./Button"
+import Name from "./Name"
 
 function App(){
-
     return (
         <>
-            {/* <Test /> */}
-            <MyComponent /> 
-            
-            {/* <WindowResize /> */}
-            {/* <Effect /> */}
+            <h1>Welcome to Entertainment</h1>
+            <Name />
+            <Button />
         </>
     )
 }
 
-export default App
+export default App;

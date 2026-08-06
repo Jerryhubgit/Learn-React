@@ -10,6 +10,8 @@ body{
   display: flex;
   align-items: center;
   justify-content: center;
+  height: 100vh;
+  text-align: center;
 }
 
 .todo-app{
@@ -33,12 +35,14 @@ input{
 }
 button{
   padding: 10px 25px;
-  background-color: hsl(0, 0%, 10%);
+  background-color: hsl(185, 100%, 15%);
   color: white;
-  border: none;
-  border-radius: 5px;
+  border: 2px solid rgba(0,0,0,.1);
+  border-radius: 50px;
+  margin: 20px 0;
   font-size: 16px;
   cursor: pointer;
+
 }
 .todo-list{
   margin-top: 30px;
