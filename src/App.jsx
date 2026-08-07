@@ -1,12 +1,14 @@
 import "./index.css"
 import Button from "./Button"
-import Name from "./Name"
+import { Name } from "./Name"
+import Description from "./Description"
 
 function App(){
     return (
         <>
-            <h1>Welcome to Entertainment</h1>
+            <h1>Welcome to Embeded Systems</h1>
             <Name />
+            <Description />
             <Button />
         </>
     )
