@@ -1,15 +1,10 @@
-import "./index.css"
-import Button from "./Button"
-import { Name } from "./Name"
-import Description from "./Description"
-
+import { Form } from "./Form"
+import './index.css'
 function App(){
     return (
         <>
             <h1>Welcome to Embeded Systems</h1>
-            <Name />
-            <Description />
-            <Button />
+            <Form />
         </>
     )
 }
