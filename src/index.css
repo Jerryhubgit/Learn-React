@@ -6,7 +6,7 @@
 }
 
 body{
-  background-color: hsl(0, 0%, 90%);
+  background-color: hsl(0, 0%, 15%);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -32,6 +32,9 @@ input{
   flex: 1;
   padding: 10px;
   font-size: 16px;
+  background-color: hsl(0, 0%, 20%);
+  border: 1px solid rgba(143, 143, 143, 0.2);
+  margin-bottom: 10px;
 }
 button{
   padding: 10px 25px;
@@ -78,4 +81,18 @@ button#delete{
 }
 .move-btns button{
   padding: 2px;
+}
+
+#product{
+    background-color: hsl(240, 100%, 80%);
+    border: 1px solid rgba(0,0,0,0.2);
+    padding: 10px;
+}
+.usercard, #products{
+  background-color: hsl(120, 100%, 10%);
+  border: 1px solid rgb(4, 139, 4);
+  padding: 10px;
+}
+.userinfo{
+  text-align: left;
 }
