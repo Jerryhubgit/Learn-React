@@ -86,6 +86,18 @@ export const CardWrapper = ({ title, children }) => {
 
 - can we use `forEach` to render items in React
 
+- why should every child class have a unique key
+
+````installHook.js:1 Each child in a list should have a unique "key" prop.
 ```
 
 ```
+Conditional Rendering- is how we make our components show different content based on differrent conditions
+
+Ways of doing conditional rendering
+- use of if statement
+- use of ternary operators
+- AND (&&) logic
+- use of varaibles for complex logic
+- Activity component (React 19.2)
+````

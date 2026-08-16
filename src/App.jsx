@@ -5,11 +5,15 @@ import { Greeting } from "./Greeting"
 import { UserCard } from "./UserCard"
 import { CardWrapper } from "./CardWrapper"
 import { ProductList } from "./ProductList"
+import { UserDetails } from "./UserDetails"
 import './index.css'
 
 function App(){
     return (
         <>
+            <UserDetails name="James Anoghua" isOnline={true} hideOffline={true} isPremium={true} isNewUser={false} role="admin" />
+            <UserDetails name="Samuel" isOnline={false} hideOffline={false} isPremium={false} isNewUser={true} role="moderator"/>
+            <UserDetails name="Henry" isOnline={true} isPremium={true} isNewUser={true} role="vip"/>
             <ProductList />
             <CardWrapper title="Nesting Items inside props" >
                 <p>Designing files </p>

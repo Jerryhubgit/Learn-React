@@ -8,7 +8,7 @@
 body{
   background-color: hsl(0, 0%, 15%);
   display: flex;
-  align-items: center;
+  /* align-items: center; */
   justify-content: center;
   height: 100vh;
   text-align: center;
@@ -38,7 +38,7 @@ input{
 }
 button{
   padding: 10px 25px;
-  background-color: hsl(185, 100%, 15%);
+  background-color: hsl(0, 0%, 5%);
   color: white;
   border: 2px solid rgba(0,0,0,.1);
   border-radius: 50px;
@@ -95,4 +95,9 @@ button#delete{
 }
 .userinfo{
   text-align: left;
+}
+#user-details{
+  border: 1px solid rgba(133, 133, 133, 0.3);
+  background-color: hsl(0, 0%, 20%);
+  margin-bottom: 5px;
 }

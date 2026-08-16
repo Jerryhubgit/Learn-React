@@ -1,32 +1,35 @@
 
-
 export const ProductList = () => {
     const products = [
         {
-            product: "Laptop", 
-            price: 999
+            id: 1, 
+            name: "laptop", 
+            price: 872
         }, 
         {
-            product: "Televison", 
-            price: 1245
+            id: 2, 
+            name: "Generator", 
+            price: 686
         }, 
         {
-            product: "Tablet", 
-            price: 422
+            id: 3, 
+            name: "Phone", 
+            price: 1222
         }
     ]
 
-    products.map(({product, price}) => console.log(product, price))
-    return (
-        <div id="products">
-            <h1>Our Products</h1>
-            {products.map(item => {
-                    return (<div>
-                        <h3>Item: {item.product}</h3>
-                        <p>Price: ${item.price}</p>
-                    </div>)
-                })
-            }
-        </div>
-    )   
+    const productsList = products.map(({id, name, price}) => {
+        return (
+            <div key={id}>
+                <h3>{name}</h3>
+                <p>Price: ${price}</p>
+            </div>
+        )
+    })
+    return(
+        <div>
+            <h2>Product List</h2>
+            {productsList}
+        </div>   
+    )
 }
