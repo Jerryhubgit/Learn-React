@@ -6,11 +6,13 @@ import { UserCard } from "./UserCard"
 import { CardWrapper } from "./CardWrapper"
 import { ProductList } from "./ProductList"
 import { UserDetails } from "./UserDetails"
+import { NameList } from "./NameList"
 import './index.css'
 
 function App(){
     return (
         <>
+            <NameList />
             <UserDetails name="James Anoghua" isOnline={true} hideOffline={true} isPremium={true} isNewUser={false} role="admin" />
             <UserDetails name="Samuel" isOnline={false} hideOffline={false} isPremium={false} isNewUser={true} role="moderator"/>
             <UserDetails name="Henry" isOnline={true} isPremium={true} isNewUser={true} role="vip"/>

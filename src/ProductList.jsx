@@ -29,7 +29,7 @@ export const ProductList = () => {
     return(
         <div>
             <h2>Product List</h2>
-            {productsList}
+            { productsList }
         </div>   
     )
 }

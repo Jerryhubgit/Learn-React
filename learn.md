@@ -88,9 +88,8 @@ export const CardWrapper = ({ title, children }) => {
 
 - why should every child class have a unique key
 
-````installHook.js:1 Each child in a list should have a unique "key" prop.
 ```
-
+installHook.js:1 Each child in a list should have a unique "key" prop.
 ```
 Conditional Rendering- is how we make our components show different content based on differrent conditions
 
@@ -100,4 +99,51 @@ Ways of doing conditional rendering
 - AND (&&) logic
 - use of varaibles for complex logic
 - Activity component (React 19.2)
-````
+
+key is a special prop react uses internally, it's used when rendering list to tell different list apart
+```
+Example: if react already sees this
+key=1 → Laptop
+key=2 → Phone
+key=3 → Mouse
+
+and it gets  updated, to avoid rebuilding it from scractch
+key=1 → Laptop
+key=4 → Keyboard
+key=2 → Phone
+key=3 → Mouse
+```
+react uses key to tell know which element was newly added to the list and which already exists
+So if item was added, removed or reordered 
+
+### Without keys 
+Image we have a list
+
+```html
+<ul>
+  <li> David </li>
+  <li> backend </li>
+  <li> clean code </li>
+<ul>
+```
+it needs to be updated to 
+
+```html
+<ul>
+  <li> David </li>
+  <li> Samuel </li>
+  <li> backend </li>
+  <li> clean code </li>
+<ul>
+```
+without keys `React` thinks every item there is new i.e 
+```
+David updates to  David 
+backend updates to  samuel
+cleancode updates to  backend
+---- updates to clean code 
+```
+with keys `React` compares the previous items with the new ones and updates only updates the new ones reducing work.
+``` 
+Example: there 4976 list items and i want to add 1 more item, without keys i would have to update it 4977 times as opposed to once with keys
+```
