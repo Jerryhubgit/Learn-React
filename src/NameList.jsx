@@ -1,11 +1,11 @@
 
 export const NameList = () => {
-    const names = ["Bruce", "Benson", "james"]
-    const nameList = names.map((name, index) => <h3 key={index}>{name}</h3>)
+    const names = ["James","Philip","Felix"]
+    const namesList = names.map((name, index) => { return <h3 key={index}>{name}</h3>})
 
-    return(
+    return (
         <div>
-            { nameList }
+            { namesList }
         </div>
     )
 }

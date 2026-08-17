@@ -7,12 +7,18 @@ import { CardWrapper } from "./CardWrapper"
 import { ProductList } from "./ProductList"
 import { UserDetails } from "./UserDetails"
 import { NameList } from "./NameList"
+import { Alert } from "./Alert"
 import './index.css'
 
 function App(){
     return (
-        <>
-            <NameList />
+        <>  
+            <Alert type="success">
+                <h2>Payment Sucessful</h2>
+            </Alert>
+            <Alert type="error">
+                <h2>Something went wrong, try again</h2>
+            </Alert>
             <UserDetails name="James Anoghua" isOnline={true} hideOffline={true} isPremium={true} isNewUser={false} role="admin" />
             <UserDetails name="Samuel" isOnline={false} hideOffline={false} isPremium={false} isNewUser={true} role="moderator"/>
             <UserDetails name="Henry" isOnline={true} isPremium={true} isNewUser={true} role="vip"/>
