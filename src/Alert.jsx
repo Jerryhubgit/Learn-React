@@ -1,11 +1,9 @@
-import styles from './Alert.module.css'
-import { Button } from "./Button"
 
-export const Alert = ({ children, type}) => {
+import styles from "./Alert.module.css"
+
+export const Alert = ({ type = "success" }) => {
+
     return (
-        <div className={`${styles.alert} ${styles.type}`}>
-            { children }
-            <Button />
-        </div>
+        <div className={`alert ${type}`}> { type === "success" ? "You payment was sucessful" : "something went wrong" }</div>
     )
 }

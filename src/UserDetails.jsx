@@ -1,4 +1,5 @@
-
+import { SubscribeBtn } from "./Button"
+import './userDetails.css'
 export const UserDetails = ((
     {
         name, 
@@ -25,6 +26,7 @@ export const UserDetails = ((
             <h3>{ name }</h3>
             <p>Status: { isOnline ? "Online" : "Offline" }</p>
             <p>{ isOnline ? 'Available for chat' : "Not Available" }</p>
+            <SubscribeBtn />
             {
                 isOnline ? (
                     <button>Send message</button>

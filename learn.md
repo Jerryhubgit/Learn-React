@@ -188,3 +188,30 @@ There are several methods for styling
 - Css Modules - you'd have to rename your file from `file.css` to `file.module.css` and its importation shifts from `import './Alert.css'
 ` to `import styles from './Alert.module.css'
 `
+  We understand styling well because we've used in the typical `.css`
+
+### Css Module
+
+Helps prevent naming conflicts. 
+
+if you have two buttons in the same file `button1` and `button2` to style them differently, you'd have to have different classNames for them in the same CSS file.
+
+You could style the first one as `.button1` and `.button2` but if there are 45 diffent shades of button it becomes messy coz, your `CSS` now contains 45 different styles for button.
+
+The best thing is to create a `.module.css` file and keep just a single class name `.button` accross your buttons. That single module file has the styles for the different types of button you might have `alert`, `failed`, `successful`, `default` etc, they would be difined in one file. 
+
+Once the styles are applied they are scoped into that button, and you can move them around without having them overwritten 
+
+The default way is
+
+```javascript
+import styles from 'filename.module.css`
+```
+
+i noticed something crazy that happen when i used the External styling. 
+
+I created a button on two different files they use same `.button` name and one style `overwrote` the other 
+
+I have a `.login.css` which i where is wrote the button and created another button in `.dashboard.css` and they both have same name, since they are both global, one overwrote the other. 
+
+So i made `.login.css` become `.login.module.css` so the style feels embeded into it and so the global style cannot sit on it now
