@@ -1,4 +1,4 @@
-
+import { Alert } from "./Alert"
 
 export const CardWrapper = ({ title, children }) => {
     return (
@@ -7,6 +7,7 @@ export const CardWrapper = ({ title, children }) => {
             <div className="card-content">
                 Nested Content goes here
                 {children}
+                <Alert />
             </div>
         </div>
     )

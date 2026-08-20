@@ -8,21 +8,19 @@ import { ProductList } from "./ProductList"
 import { UserDetails } from "./UserDetails"
 import { NameList } from "./NameList"
 import { Alert } from "./Alert"
+import { CustomButton } from "./CustomButton.jsx"
 
-import { SubscribeBtn, DeleteBtn } from "./Button"
 import './index.css'
 
 function App(){
     return (
         <>  
-            <SubscribeBtn />
-            <DeleteBtn />
-            <Alert type="error">
-                <h2>Payment Sucessful</h2>
-            </Alert>
-            <Alert type="success">
-                <h2>Something went wrong, try again</h2>
-            </Alert>
+            <CustomButton text="markdown" />
+            <CustomButton text="linux" />
+            <CustomButton text="ZSH" />
+            <Alert />
+            <Alert type="error"/>
+            <Alert type="success"/>
             <UserDetails name="James Anoghua" isOnline={true} hideOffline={true} isPremium={true} isNewUser={false} role="admin" />
             <UserDetails name="Samuel" isOnline={false} hideOffline={false} isPremium={false} isNewUser={true} role="moderator"/>
             <UserDetails name="Henry" isOnline={true} isPremium={true} isNewUser={true} role="vip"/>
