@@ -1,12 +1,12 @@
 
-export const CustomButton = ({ text }) => {
+
+export const CustomButton = ({ text = "default" }) => {
     const handleClick = (e) => {
-        console.log(`Jerry you clicked on ${e.target.value}`)
+        console.log(`You just clicked ${text} button`)
     }
-    return <button style={{
-        margin: "10px", 
-        border: "1px solid hsl(0,0%,30%)"
-    }}
-        onClick={handleClick} value={text}
-     >{text}</button>
+    return <button 
+        style={{
+            margin: "5px"
+        }}
+        onClick={handleClick}>{text}</button>
 }

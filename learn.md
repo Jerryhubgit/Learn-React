@@ -26,7 +26,7 @@ export const CardWithoutJsx = () => {
 };
 ```
 
-### JSX rules
+## JSX rules
 
 - All jsx code must closed. we can't have
 
@@ -102,6 +102,8 @@ Ways of doing conditional rendering
 - use of varaibles for complex logic
 - Activity component (React 19.2)
 
+## React keys
+
 key is a special prop react uses internally, it's used when rendering list to tell different list apart
 
 ```
@@ -160,7 +162,7 @@ with keys `React` compares the previous items with the new ones and updates only
 Example: there 4976 list items and i want to add 1 more item, without keys i would have to update it 4977 times as opposed to once with keys
 ```
 
-### Styling React Component
+## Styling React Component
 
 How do we style components in react
 the `{}` in `style={}` is to for javscript
@@ -190,7 +192,7 @@ There are several methods for styling
 `
   We understand styling well because we've used in the typical `.css`
 
-### Css Module
+## Css Module
 
 Helps prevent naming conflicts.
 
@@ -216,16 +218,56 @@ I have a `.login.css` which i where is wrote the button and created another butt
 
 So i made `.login.css` become `.login.module.css` so the style feels embeded into it and so the global style cannot sit on it now
 
+## Event Handling
+
+Event handling is how react reacts to changes i.e clicked a button, pressed a key ..
+We have three thing `Event`, `Event object` and `Event handler`
+
+- `Event` - this is the action happend i.e clicked a button, pressed a key, so the `onClick`, `onChange`, `onSubmit` are called `event types`
+- `Even object` - is the changes that would result from that. You could set you event object to `console.log(...)` or something else. What will happen when that event object is triggered is the `event object` and it's usually declared in t in the function which `handles`
+
+- `Event handler` - is the function that call the `event object`
+
+what are their differences
+
+- `{ handleClick }`
+- `{ handleClick()}`
+- `{ () => handleClick }`
+- `{ () => handleClick() }`
+
+Responding to events is a two-step process
+
+1. Define the funciton to be executed when event occurs
+2. Then you assign the function to a special `prop` that starts with `on` e.g onClick(), onChange()
+
+- So handling events is all about passing function to special props like `onClick`
+- Remeber not to call it you just pass it unlike HTML
+
+```HTML
+<button onclick="handleClick()">Click me</button>
+```
+
+There are other event handler you can try out like: `onSubmit` - forms, `onMouseEnter`, `onMouseLeave`, `onKeyDown`, `onKeyDonw`, `onKeyUp`, `onFocus` - inpute receives focus, `onBlur` - input loses focus
+
+## Event handlers as props
+
+We might want to reuse a component in multiple places, for example: a button might be used as contact button and subscribe button but you'd want them to perform different actions
+
+Each component receives the `event handler` as a prop and decides what `event object` should be produced when we click
+
+We do this:
+
+```javascript
+export const ActionButton = ({ text, onClick }) => {
+  return <button onClick={onClick}>{text}</button>;
+};
+```
+
+So what happend here is when you click on the button `onClick={onClick}` the second one is the function which is `event handler`
+
+The `event hanlder` was passed into the `event object` to be handled differrently by each component, since they would produce differrent result
+
 ## Question
 
 1. why was css module invented
 2. how was it implemented
-
-
-
-## Event Handling 
-what are their differences
-- `{ handleClick }` 
-- `{ handleClick()}`
-- `{ () => handleClick }`
-- `{ () => handleClick() }`

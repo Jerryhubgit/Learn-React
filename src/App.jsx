@@ -8,16 +8,19 @@ import { ProductList } from "./ProductList"
 import { UserDetails } from "./UserDetails"
 import { NameList } from "./NameList"
 import { Alert } from "./Alert"
-import { CustomButton } from "./CustomButton.jsx"
-
+import { CustomButton } from "./CustomButton"
+import { Contact } from "./Contact"
+import { Newsletter } from "./Newsletter"
 import './index.css'
 
 function App(){
     return (
         <>  
-            <CustomButton text="markdown" />
-            <CustomButton text="linux" />
-            <CustomButton text="ZSH" />
+            <Contact />
+            <Newsletter />
+            <CustomButton text="reading" />
+            <CustomButton text="Markdown" />
+            <CustomButton text="Shaving" />
             <Alert />
             <Alert type="error"/>
             <Alert type="success"/>
