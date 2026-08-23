@@ -12,17 +12,21 @@ import { CustomButton } from "./CustomButton"
 import { Contact } from "./Contact"
 import { Newsletter } from "./Newsletter"
 import { Menu } from "./Menu"
+import { Counter } from "./Counter"
+import {LoginCard } from "./LoginCard"
 import './index.css'
 
 function App(){
     return (
         <>  
+            <LoginCard />
+            <Counter />
             <Menu />
             {/* <Contact /> */}
             {/* <Newsletter /> */}
-            <CustomButton text="reading" />
-            <CustomButton text="Markdown" />
-            <CustomButton text="Shaving" />
+            {/* <CustomButton text="reading" /> */}
+            {/* <CustomButton text="Markdown" /> */}
+            {/* <CustomButton text="Shaving" /> */}
             <Alert />
             <Alert type="error"/>
             <Alert type="success"/>

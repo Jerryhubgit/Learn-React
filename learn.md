@@ -303,7 +303,54 @@ export const MenuItem = ({name, price, onOrder}) => {
 - We created a `Menu` and passed the `Menu items` into the menu 
 - The main part is where we trigger the `onClick` the parent `Menu` calls the `handleOrder` function
 
+
+## State - useState 
+State is a component's memory, it's a special data that
+- Triggers a re-render when it changes (solving our screen update problem)
+- Presists between renders (solveing our reset problem)
+because react renders from top to bottom on every render variable could be reinitialized instead of being persistent
+
+the `[currentvalue, setterFunction] = useState(initialValue)`
+
+Lazy initialization - to initialize on when you need it 
+it's used when 
+- reading values from localStorage
+- Feting from API
+you might have created a variable for it but you only want to intialize it when you receive it
+
+```javascript
+import {useState } from "react"
+
+export const LoginCard = () => {
+    const [message, setMessage] = useState()
+   
+    const handleChange = (e) => {
+        setMessage(e.target.value)
+    }
+    return (
+        <>
+            <div>
+                <h2>{!message ? "Text displays Here" : message}</h2>
+                <input type="text" placeholder="Enter your message..." value={message} onChange={handleChange}/>
+            </div>
+        </>
+    )
+}
+```
+- first note the `input` has parameter called `value` 
+- you set the initial value of `message` to it
+- you use the `handleChange` to change the `message` and with what's in the input
+- which in turn updates the screen
+
+### Summary useState
+- it returns two items and we do use array destructuring to received them `[currentValue, setterFunction]` 
+- We can have multiple state variable each managing its own data 
+
 ## Question
 
 1. why was css module invented
 2. how was it implemented
+3. Why do value not update naturally in react and we always have to use the useState hook to update values
+4. What's the essence of strictmode
+5. What are hooks 
+6. in the counter project why does `++count` behave differently from `count++`
