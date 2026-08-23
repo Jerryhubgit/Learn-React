@@ -1,9 +1,10 @@
-### export and export.default()
+## export and export.default()
 
 Using the `export` requires you to import using braces `{ variable }` so the variable can't change its name when importing
 unlike `export default` which allow you to change it since is just the `varaible`
 
-- Creating elements with our typical `.jsx` is a mess.
+## Why JSX is important
+Creating elements without our typical `.jsx` is a mess.
   Example: To create, an element with the JSX syntax, you'd have to do
 
 ```javascript
@@ -220,13 +221,13 @@ So i made `.login.css` become `.login.module.css` so the style feels embeded int
 
 ## Event Handling
 
-Event handling is how react reacts to changes i.e clicked a button, pressed a key ..
-We have three thing `Event`, `Event object` and `Event handler`
+Event handling is how react responds to change i.e clicked a button, pressed a key .
+We have three things `Event`, `Event object` and `Event handler`
 
 - `Event` - this is the action happend i.e clicked a button, pressed a key, so the `onClick`, `onChange`, `onSubmit` are called `event types`
-- `Even object` - is the changes that would result from that. You could set you event object to `console.log(...)` or something else. What will happen when that event object is triggered is the `event object` and it's usually declared in t in the function which `handles`
+- `Even object` - is the changes that would result from what you did. You could set you event object to `console.log(...)` or something else. What will happen when that event object is triggered is the `event object` and it's usually declared in the function which `handles`
 
-- `Event handler` - is the function that call the `event object`
+- `Event handler` - is the function that calls the `event object`
 
 what are their differences
 
@@ -237,8 +238,8 @@ what are their differences
 
 Responding to events is a two-step process
 
-1. Define the funciton to be executed when event occurs
-2. Then you assign the function to a special `prop` that starts with `on` e.g onClick(), onChange()
+1. Define the function to be executed when event occurs
+2. Then you assign the function to a special `prop` that starts with `on` e.g `onClick()`, `onChange()`
 
 - So handling events is all about passing function to special props like `onClick`
 - Remeber not to call it you just pass it unlike HTML
@@ -247,11 +248,11 @@ Responding to events is a two-step process
 <button onclick="handleClick()">Click me</button>
 ```
 
-There are other event handler you can try out like: `onSubmit` - forms, `onMouseEnter`, `onMouseLeave`, `onKeyDown`, `onKeyDonw`, `onKeyUp`, `onFocus` - inpute receives focus, `onBlur` - input loses focus
+There are other event handler you can try out like: `onSubmit` - forms, `onMouseEnter`, `onMouseLeave`, `onKeyDown`, `onKeyUp`, `onFocus` - input receives focus, `onBlur` - input loses focus
 
 ## Event handlers as props
 
-We might want to reuse a component in multiple places, for example: a button might be used as contact button and subscribe button but you'd want them to perform different actions
+We might want to reuse a component in multiple places, for example: a button might be used as `contact button` and `subscribe button` but you'd want them to perform different actions
 
 Each component receives the `event handler` as a prop and decides what `event object` should be produced when we click
 
@@ -263,9 +264,44 @@ export const ActionButton = ({ text, onClick }) => {
 };
 ```
 
-So what happend here is when you click on the button `onClick={onClick}` the second one is the function which is `event handler`
+So what happend here is when you click on the button `onClick={onClick}` the second `onClick` is the function which is `event handler`
 
-The `event hanlder` was passed into the `event object` to be handled differrently by each component, since they would produce differrent result
+The `event hanlder` was passed into the `event` as an argument to be handled differrently by each component, since they would produce differrent result
+
+I handled place we used the `Event handler` as prop was here
+
+### Menu 
+```javascript
+import { MenuItem } from "./MenuItem"
+export const Menu = () => {
+     const handleOrder = (itemName, itemPrice) => {
+        console.log(`You bought ${itemName} for $${itemPrice}`)
+    }
+    return (
+        <div>
+            <h2>Menu</h2>
+            <MenuItem name = "Pizza" price={23.22} onOrder={handleOrder}/>
+            <MenuItem name = "Spring rolls" price={45.20} onOrder={handleOrder}/>
+            <MenuItem name = "Turkey" price={123.22} onOrder={handleOrder}/>
+        </div>
+    )
+}
+```
+### MenuItems
+```javascript
+
+export const MenuItem = ({name, price, onOrder}) => {
+   
+    return(
+        <div>
+            <span style={{margin: "30px"}}>{name} - ${price}</span>
+            <button onClick={() => onOrder(name, price)} style={{padding: "5px 10px"}}>order</button>
+        </div>
+    )
+}
+```
+- We created a `Menu` and passed the `Menu items` into the menu 
+- The main part is where we trigger the `onClick` the parent `Menu` calls the `handleOrder` function
 
 ## Question
 

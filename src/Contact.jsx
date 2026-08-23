@@ -1,15 +1,14 @@
 import { ActionButton } from "./ActionButton"
 
 export const Contact = () => {
+
+    const handleClick = () => {
+        console.log("Send us message")
+    }
     return (
-        <div
-            style={{
-                margin: "10px", 
-                border: "2px solid "
-            }}
-        >
-            <h2>Contact Us</h2>
-            <ActionButton text="send message" />
+        <div>
+            <h3> Contact us </h3>
+            <ActionButton text="Send message" onClick={handleClick} />
         </div>
     )
 }

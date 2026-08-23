@@ -1,18 +1,14 @@
 import { ActionButton } from "./ActionButton"
 
 export const Newsletter = () => {
+
     const handleClick = () => {
-        console.log("Newsletter");
+        console.log("Subscribe to newsletter")
     }
     return (
-        <div
-            style={{
-                margin: "10px", 
-                border: "2px solid white"
-            }}
-        >
-            <h2 style={{color: "white"}}>Subscribe to Newsletter</h2>
-            <ActionButton onClick={handleClick} text="newsletter"/>
+        <div>
+            <h3>Subscribe to Newsletter</h3>
+            <ActionButton text="Subscribe" onClick={handleClick} />
         </div>
     )
 }
