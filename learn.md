@@ -4,8 +4,9 @@ Using the `export` requires you to import using braces `{ variable }` so the var
 unlike `export default` which allow you to change it since is just the `varaible`
 
 ## Why JSX is important
+
 Creating elements without our typical `.jsx` is a mess.
-  Example: To create, an element with the JSX syntax, you'd have to do
+Example: To create, an element with the JSX syntax, you'd have to do
 
 ```javascript
 React.createElement(div, { id: "container" }, "hello jerry");
@@ -270,81 +271,251 @@ The `event hanlder` was passed into the `event` as an argument to be handled dif
 
 I handled place we used the `Event handler` as prop was here
 
-### Menu 
-```javascript
-import { MenuItem } from "./MenuItem"
-export const Menu = () => {
-     const handleOrder = (itemName, itemPrice) => {
-        console.log(`You bought ${itemName} for $${itemPrice}`)
-    }
-    return (
-        <div>
-            <h2>Menu</h2>
-            <MenuItem name = "Pizza" price={23.22} onOrder={handleOrder}/>
-            <MenuItem name = "Spring rolls" price={45.20} onOrder={handleOrder}/>
-            <MenuItem name = "Turkey" price={123.22} onOrder={handleOrder}/>
-        </div>
-    )
-}
-```
-### MenuItems
-```javascript
+### Menu
 
-export const MenuItem = ({name, price, onOrder}) => {
-   
-    return(
-        <div>
-            <span style={{margin: "30px"}}>{name} - ${price}</span>
-            <button onClick={() => onOrder(name, price)} style={{padding: "5px 10px"}}>order</button>
-        </div>
-    )
-}
+```javascript
+import { MenuItem } from "./MenuItem";
+export const Menu = () => {
+  const handleOrder = (itemName, itemPrice) => {
+    console.log(`You bought ${itemName} for $${itemPrice}`);
+  };
+  return (
+    <div>
+      <h2>Menu</h2>
+      <MenuItem name="Pizza" price={23.22} onOrder={handleOrder} />
+      <MenuItem name="Spring rolls" price={45.2} onOrder={handleOrder} />
+      <MenuItem name="Turkey" price={123.22} onOrder={handleOrder} />
+    </div>
+  );
+};
 ```
-- We created a `Menu` and passed the `Menu items` into the menu 
+
+### MenuItems
+
+```javascript
+export const MenuItem = ({ name, price, onOrder }) => {
+  return (
+    <div>
+      <span style={{ margin: "30px" }}>
+        {name} - ${price}
+      </span>
+      <button
+        onClick={() => onOrder(name, price)}
+        style={{ padding: "5px 10px" }}
+      >
+        order
+      </button>
+    </div>
+  );
+};
+```
+
+- We created a `Menu` and passed the `Menu items` into the menu
 - The main part is where we trigger the `onClick` the parent `Menu` calls the `handleOrder` function
 
+## State - useState
 
-## State - useState 
 State is a component's memory, it's a special data that
+
 - Triggers a re-render when it changes (solving our screen update problem)
 - Presists between renders (solveing our reset problem)
-because react renders from top to bottom on every render variable could be reinitialized instead of being persistent
+  because react renders from top to bottom on every render variable could be reinitialized instead of being persistent
 
 the `[currentvalue, setterFunction] = useState(initialValue)`
 
-Lazy initialization - to initialize on when you need it 
-it's used when 
+Lazy initialization - to initialize on when you need it
+it's used when
+
 - reading values from localStorage
 - Feting from API
-you might have created a variable for it but you only want to intialize it when you receive it
+  you might have created a variable for it but you only want to intialize it when you receive it
 
 ```javascript
-import {useState } from "react"
+import { useState } from "react";
 
 export const LoginCard = () => {
-    const [message, setMessage] = useState()
-   
-    const handleChange = (e) => {
-        setMessage(e.target.value)
-    }
-    return (
-        <>
-            <div>
-                <h2>{!message ? "Text displays Here" : message}</h2>
-                <input type="text" placeholder="Enter your message..." value={message} onChange={handleChange}/>
-            </div>
-        </>
-    )
-}
+  const [message, setMessage] = useState();
+
+  const handleChange = (e) => {
+    setMessage(e.target.value);
+  };
+  return (
+    <>
+      <div>
+        <h2>{!message ? "Text displays Here" : message}</h2>
+        <input
+          type="text"
+          placeholder="Enter your message..."
+          value={message}
+          onChange={handleChange}
+        />
+      </div>
+    </>
+  );
+};
 ```
-- first note the `input` has parameter called `value` 
+
+- first note the `input` has parameter called `value`
 - you set the initial value of `message` to it
 - you use the `handleChange` to change the `message` and with what's in the input
 - which in turn updates the screen
 
 ### Summary useState
-- it returns two items and we do use array destructuring to received them `[currentValue, setterFunction]` 
-- We can have multiple state variable each managing its own data 
+
+- it returns two items and we do use array destructuring to received them `[currentValue, setterFunction]`
+- We can have multiple state variable each managing its own data
+
+## Rules of hooks
+
+**Rule1:** only call hooks at the top level of your function, not inside`loops`, `condition`, `nested function` or `try/catch blocks`
+
+**Rule2:** only call hooks from react functions from react components and custom hooks
+
+### Order of hooks
+
+React uses the order in which hooks appear to render them, and any changes to that order as a result of `condition` would result in error
+
+![alt text](image.png)
+
+React doesn't track hooks by their name but by the order they appear, so you can think of:
+
+```
+hook #1 -> items
+hook #2 -> discounts
+hook #3 -> total
+```
+
+So when it renders it does it in order they appear.
+
+That's why react flags you anytime you have hooks in `condition`, `nested function` etc
+
+if `hook #2` was declared in a condition and on render the condition is false that hook isn't created, so `hook #2 - total` so the value discount might be set to total now
+because when a contition isn't true the hook isn't rendered
+
+![alt text](image-1.png)
+
+#### Ways of breaking the ordering or hooks rule
+
+- Declaring hooks in loops
+- hooks after early return
+
+```javascript
+export const userProfile = ({ userId }) => {
+  if (!userId) {
+    return <div> Please log in </div>;
+  }
+
+  const [profile, setProfile] = useState(null);
+};
+```
+if the first `userId` is false then the hook `profile` isn't created
+- Hooks in event handlers
+
+We don't have to manually detect the hooks errors, the `eslint-plugin-react-hooks` handles that
+
+All these are reasons hook should be declared at top level and not declared in  `conditions`
+
+
+## React hooks cannot be used in regular javascript function 
+Regular javascript function are functions that do not return `JSX` i.e they are not components
+#### Regualar JS function 
+```javascript 
+function calculateTotal() {
+  const [total, setTotal] = useState(0);
+}
+```
+
+React hooks are supposed to be used when rendering a component 
+```javascript
+function App() {
+  const [count, setCount] = useState(0);
+
+  return <button>{count}</button>;
+}
+```
+
+
+## How update works 
+- Trigger phase - simply tell react that `something has changed in. you need to render this component again`
+- Render phase - react figures out what needs to change 
+- commit phase - react changes the component that requires update
+
+
+### How setCount update works
+1. You call the `setCount(count + 1)` triggers phase
+2. React marks your component as needing an update 
+3. React calls your component function
+4. you function returns the JSX with the updated 
+5. React compares this render with the previous one and figures out what changed 
+6. React compares and updates only the portion that changed in the DOM 
+
+Example: 
+```javascript
+const handleClick = () => {
+        console.log(`Before: ${count}`)
+        setCount(count+1)
+        console.log(`After: ${count}`)
+    }
+```
+The result are : 
+```
+Before: 0
+After: 0
+
+and not
+Before: 0 
+After: 1
+```
+
+### My initial explanation 
+- Remember when we said `hooks` are only used in `components` i.e functions that returns `jsx`
+- When we click the button, the Setter function  `SetCount(count + 1)` doesn't actually update `count` immediately until it renders a `component`
+
+Since the `return` state that renders the component are the last things `count` remain the same until the next render
+
+```javascript
+ <div>
+    <h2>Count: {count}</h2> // <- updates 
+    <button onClick={handleClick}>increment</button>
+    {console.log(count)}   // <- updates
+</div>
+```
+
+### Actual explanation
+React undergoes a `trigger -> render -> comment` phase to update 
+
+- on first render 
+- we click the button 
+- it runs the entire code 
+- it then encounters `setCounter(count+1)` 
+- this triggers it that `count` was updated
+- we enter the `render` phase
+- here is calls the `Counter()` component again with `count = 1` 
+- commit phase it updates `count` in the component
+- waits for another click 
+
+### state as a snapshot 
+```javascript
+const handleClick = () => {
+  setCount(count+1)   
+  console.log(`After: ${count}`)   
+  setCount(count+3)   
+  console.log(`After: ${count}`)   
+  setCount(count+4)   
+  console.log(`After: ${count}`)   
+}
+```
+
+- whenever we encounter `setCount(count+1)` it simply tell react that on the next update use `count = 1` but we haven't enter the next update yet so count is still `0` so `After: 0`
+
+- Since `count = 0` because we are not yet to update `setCount(count + 3)` tells react on the next update use `count + 3` 
+
+and so on, but the last one is the on that is picked `setCount(0+4)` tells react use `count = 4` in the next update
+
+
+
+
+
 
 ## Question
 
@@ -352,5 +523,5 @@ export const LoginCard = () => {
 2. how was it implemented
 3. Why do value not update naturally in react and we always have to use the useState hook to update values
 4. What's the essence of strictmode
-5. What are hooks 
+5. What are hooks
 6. in the counter project why does `++count` behave differently from `count++`
