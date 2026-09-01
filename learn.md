@@ -408,24 +408,29 @@ export const userProfile = ({ userId }) => {
   const [profile, setProfile] = useState(null);
 };
 ```
+
 if the first `userId` is false then the hook `profile` isn't created
+
 - Hooks in event handlers
 
 We don't have to manually detect the hooks errors, the `eslint-plugin-react-hooks` handles that
 
-All these are reasons hook should be declared at top level and not declared in  `conditions`
+All these are reasons hook should be declared at top level and not declared in `conditions`
 
+## React hooks cannot be used in regular javascript function
 
-## React hooks cannot be used in regular javascript function 
 Regular javascript function are functions that do not return `JSX` i.e they are not components
-#### Regualar JS function 
-```javascript 
+
+#### Regualar JS function
+
+```javascript
 function calculateTotal() {
   const [total, setTotal] = useState(0);
 }
 ```
 
-React hooks are supposed to be used when rendering a component 
+React hooks are supposed to be used when rendering a component
+
 ```javascript
 function App() {
   const [count, setCount] = useState(0);
@@ -434,88 +439,126 @@ function App() {
 }
 ```
 
+## How update works
 
-## How update works 
-- Trigger phase - simply tell react that `something has changed in. you need to render this component again`
-- Render phase - react figures out what needs to change 
+- Trigger phase - simply tell react that `something has changed in. you need to render this component again` and then queues the update(s) in the updater queue
+- Render phase - react figures out what needs to be updated, by going through the updater queue to retreive the final value
 - commit phase - react changes the component that requires update
 
-
 ### How setCount update works
-1. You call the `setCount(count + 1)` triggers phase
-2. React marks your component as needing an update 
-3. React calls your component function
-4. you function returns the JSX with the updated 
-5. React compares this render with the previous one and figures out what changed 
-6. React compares and updates only the portion that changed in the DOM 
 
-Example: 
+1. You call the `setCount(count + 1)` triggers phase
+2. React marks your component as needing an update
+3. React calls your component function
+4. you function returns the JSX with the updated
+5. React compares this render with the previous one and figures out what changed
+6. React compares and updates only the portion that changed in the DOM
+
+Example:
+
 ```javascript
 const handleClick = () => {
-        console.log(`Before: ${count}`)
-        setCount(count+1)
-        console.log(`After: ${count}`)
-    }
+  console.log(`Before: ${count}`);
+  setCount(count + 1);
+  console.log(`After: ${count}`);
+};
 ```
-The result are : 
+
+The result are :
+
 ```
 Before: 0
 After: 0
 
 and not
-Before: 0 
+Before: 0
 After: 1
 ```
 
-### My initial explanation 
+### My initial explanation
+
 - Remember when we said `hooks` are only used in `components` i.e functions that returns `jsx`
-- When we click the button, the Setter function  `SetCount(count + 1)` doesn't actually update `count` immediately until it renders a `component`
+- When we click the button, the Setter function `SetCount(count + 1)` doesn't actually update `count` immediately until it renders a `component`
 
 Since the `return` state that renders the component are the last things `count` remain the same until the next render
 
 ```javascript
  <div>
-    <h2>Count: {count}</h2> // <- updates 
+    <h2>Count: {count}</h2> // <- updates
     <button onClick={handleClick}>increment</button>
     {console.log(count)}   // <- updates
 </div>
 ```
 
 ### Actual explanation
-React undergoes a `trigger -> render -> comment` phase to update 
 
-- on first render 
-- we click the button 
-- it runs the entire code 
-- it then encounters `setCounter(count+1)` 
-- this triggers it that `count` was updated
+React undergoes a `trigger -> render -> commit` phase to update
+
+- App is rendered
+- we click the button
+- it runs the entire code
+- it then encounters `setCounter(count+1)`
+- it stores it in the updater queue as `setCounter(0+1)`, `setCounter(0+3)`, `setCounter(0+4)`
+- the event handler completes
 - we enter the `render` phase
-- here is calls the `Counter()` component again with `count = 1` 
+- it first loops through the updater queue and evaluates the new state of `count`
+- here is calls the `Counter()` component again with `count = 4`
+- it loop though the queue to evaluate the current value for `count`
 - commit phase it updates `count` in the component
-- waits for another click 
+- waits for another click
 
-### state as a snapshot 
+## State as a snapshot
+
 ```javascript
 const handleClick = () => {
-  setCount(count+1)   
-  console.log(`After: ${count}`)   
-  setCount(count+3)   
-  console.log(`After: ${count}`)   
-  setCount(count+4)   
-  console.log(`After: ${count}`)   
-}
+  setCount(count + 1);
+  console.log(`After: ${count}`);
+  setCount(count + 3);
+  console.log(`After: ${count}`);
+  setCount(count + 4);
+  console.log(`After: ${count}`);
+};
 ```
 
-- whenever we encounter `setCount(count+1)` it simply tell react that on the next update use `count = 1` but we haven't enter the next update yet so count is still `0` so `After: 0`
+- whenever we encounter `setCount(count+1)` it simply tell react that on the next update use `count = i`, $i = \{1,3,5\}$ but we haven't enter the next update yet so count is still `0` so `After: 0`
 
-- Since `count = 0` because we are not yet to update `setCount(count + 3)` tells react on the next update use `count + 3` 
+- Since `count = 0` because we are not yet to update `setCount(count + 3)` tells react on the next update use `count = 3`
 
 and so on, but the last one is the on that is picked `setCount(0+4)` tells react use `count = 4` in the next update
 
+## Updater Function
 
+```javascript
+const handleClick = () => {
+  setCount((prev) => {
+    console.log(`After: ${prev}`);
+    return prev + 1;
+  });
+  setCount((prev) => {
+    console.log(`After: ${prev}`);
+    return prev + 3;
+  });
+  setCount((prev) => {
+    console.log(`After: ${prev}`);
+    return prev + 4;
+  });
+};
+```
 
-
-
+- App is displayed
+- you click on the button
+- enter the trigger phase
+- updates `setCount(prev => prev+1)`,`setCount(prev => prev+3)`, `setCount(prev => prev+4)` are queued
+- enter the render phase with `count = 0`
+- loop through the updater queue
+- evaluate the updater functions in the updater queue  
+  `(0) => 0+1` `count = 1`  
+  `(1) => 1+3` `count = 4`  
+  `(4) => 4+4` `count = 8`
+- still in render phase
+- call the `Counter` component with `count = 8`
+- enter commit phase
+- render the DOM with `count = 8`
 
 ## Question
 

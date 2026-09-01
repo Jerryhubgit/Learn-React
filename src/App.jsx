@@ -16,12 +16,16 @@ import {LoginCard } from "./LoginCard"
 import { Counter, LoginBtn } from "./Counter"
 import { UserDashboard } from "./UserDashboard"
 import { SimpleCounter } from "./SimpleCounter"
+import { PreviousStateCounter } from "./PreviousStateCounter"
+import { BatchingCounter } from "./BatchingCounter"
 import './index.css'
 
 function App(){
     return (
         <>  
-            <SimpleCounter />
+            <BatchingCounter />
+            <PreviousStateCounter />
+            {/* <SimpleCounter /> */}
             {/* <UserDashboard isPremium={true} /> */}
             {/* <UserDashboard isPremium={false} /> */}
             <LoginBtn />
