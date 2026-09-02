@@ -3,7 +3,6 @@
   padding: 0;
   box-sizing: border-box;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  list-style: none;
   text-decoration: none;
 }
 
@@ -104,6 +103,6 @@ button#delete{
   background-color: hsl(0, 0%, 20%);
   margin-bottom: 5px;
 }
-ul li{
+ul li {
   display: flex;
 }

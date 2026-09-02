@@ -560,6 +560,24 @@ const handleClick = () => {
 - enter commit phase
 - render the DOM with `count = 8`
 
+## Remove from an array 
+```javascript 
+const deleteItem = (id) => {
+    setList(list.filter((item) => id !== item.id ))
+}
+```
+There are two different things here `id` and `item.id`.
+
+`item.id` - is ID for which it is recognized in the list  
+`id` - was used in creating the list 
+
+- Every `<li>` created has a unique id
+- Since the elements are created directly from the array 
+- we use the `id` retreived from the list item
+- compare it accross the id of every item in the array 
+- Remove the one that matches
+
+
 ## Question
 
 1. why was css module invented
