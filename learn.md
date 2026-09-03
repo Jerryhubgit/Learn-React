@@ -577,6 +577,126 @@ There are two different things here `id` and `item.id`.
 - compare it accross the id of every item in the array 
 - Remove the one that matches
 
+## useReducer 
+Note that the `.reduce()` array method iterates over an array and returns a single value. 
+It execute a user-supplied reducer callback function on each element of the array, in order, passing in the return value form the calculation on the preceding element. 
+
+```javascript
+const arr =  [1,2,3,4,5]
+let result = arr.reduce((acc, next) => acc + next)
+``` 
+
+```javascript
+const arr =  [1,2,3,4,5]
+let initial = 5;
+let result = arr.reduce((acc, next) => acc + next, initial)
+```
+
+**Note:** if there's no initial value javascript uses the `arr[0]` as the accumulator and `arr[1]` as the initial value so we loop from `1 - > end` 
+
+```
+accumulator = arr[0] + arr[1]
+```
+
+If there the accumulator is evaluated based on the return value of the function.
+
+```
+accumulator = initialValue + arr[0]
+```
+
+The `useReducer` hook is another to manage state in react 
+
+The `array.reduce(reducer, initialValue)` and `useReducer(reducer, initialState)` both accept a `reducer` function and an initial state / value, the reducer is a callback function
+
+- reducer - array.reduce() -> Accepts `(acc, currValue)`
+- reducer - useReduce => Accepts `(state, action)` 
+
+The `Action` is a way to describe what happend in the application e.g (increment/decrement/reset button clicked)
+
+- reducer function - array.reduce() - return a single value 
+- reducer function - useReducer - return 2 value `[state, dispatch]` 
+
+`dispatch` is used to send the action to the `reducer()` 
+
+There are three thing to keep track of `state`, `action`, `dispatch` 
+
+- State - this is the current value 
+- action - event that took place 
+- dispatch - function used to send the `action` from the user to `reducer` function 
+
+## How useReducer works 
+```javascript
+import { useReducer } from 'react'
+
+const initialState = 0
+
+
+// Reducer function
+
+const reducer = (state, action) => {
+    switch(action){
+        case "increment":
+            return state + 1
+        case "decrement": 
+            return state - 1
+        case "reset": 
+            return initialState;
+        default: 
+            return state;
+    }
+}
+
+```
+### Component
+```javascript
+export const CounterWithReducer = () => {
+    const [state, dispatch] = useReducer(
+        (state, action) => {
+            switch(action){
+                case "increment":
+                    return state + 1
+                case "decrement": 
+                    return state - 1
+                case "reset": 
+                    return initialState;
+                default: 
+                    return state;
+            }
+        }
+        , initialState)
+    return(
+        <div>
+            <h2>{state}</h2>
+            <button onClick={() => dispatch("decrement")}>decrement</button>
+            <button onClick={() => dispatch("reset")}>reset</button>
+            <button onClick={() => dispatch("increment")}>increment</button>
+        </div>
+    )
+}
+```
+
+- The `CounterWithReducer` component is called  
+- `state` and `dispatch` are unpacked from `useReducer` i.e they are now part of the lines of code and no long arguments
+```javascript
+....
+state = ...
+const dispatch = (action) => {
+
+}
+....
+```
+- JSX is returned
+- You click the button 
+- we enter the trigger phase
+- It calls the `dispatch(action)` and updates action based on the button clicked and returns it 
+- the state remains the same and `action` returned form dispatch is queued in the updater queue
+- The dispatch funciton is completed
+
+
+
+
+
+
 
 ## Question
 
