@@ -11,12 +11,12 @@ function App(){
     return (
         <>  
             <ShoppingCartWithReducer />
-            <CounterWithReducer />
-            <ShoppingCart />
+            {/* <CounterWithReducer /> */}
+            {/* <ShoppingCart />
             <TodoList />
             <UserProfile />
             <BatchingCounter />
-                   
+                    */}
         </>
     )
 }

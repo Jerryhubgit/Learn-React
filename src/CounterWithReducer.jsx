@@ -1,46 +1,28 @@
 import { useReducer } from 'react'
 
-const initialState = 0
-const reducer = (state, action) => {
+let initialState = 0;
+const reducer = (currState, action) => {
     switch(action){
-        case "increment":
-            return state + 1
-        case "decrement": 
-            return state - 1
+        case "decrease":
+            return currState - 1
+        case "increase": 
+            return currState + 1
         case "reset": 
-            return initialState;
+            return initialState
         default: 
-            return state;
+            return currState
     }
 }
+
 export const CounterWithReducer = () => {
-    const [state, dispatch] = useReducer(
-        (state, action) => {
-            switch(action){
-                case "increment":
-                    return state + 1
-                case "decrement": 
-                    return state - 1
-                case "reset": 
-                    return initialState;
-                default: 
-                    return state;
-            }
-        }
-        , initialState)
+    const [currState, dispatch] = useReducer(reducer, initialState)
+
     return(
         <div>
-            <h2>{state}</h2>
-            <button onClick={() => dispatch("decrement")}>decrement</button>
+            <h1>{currState}</h1>
+            <button onClick={() => dispatch("decrease")}>decrease</button>
             <button onClick={() => dispatch("reset")}>reset</button>
-            <button onClick={() => dispatch("increment")}>increment</button>
+            <button onClick={() => dispatch("increase")}>increase</button>
         </div>
     )
 }
-
-
-/*
-    - state 
-    - dispatch(action)
-
-*/
