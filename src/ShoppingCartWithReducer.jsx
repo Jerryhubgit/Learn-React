@@ -37,12 +37,33 @@ const reducer = (state, action) => {
 
 
             return {
-                ...state, 
                 items: filteredItems, 
-                totalAmount: filteredItems.reduce((total, item) => total + item.price * item.quantity),
-                totalItems: filteredItems.reduce((total, item) => total + item.quantity)
+                totalAmount: filteredItems.reduce((total, item) => total + item.price * item.quantity, 0),
+                totalItems: filteredItems.reduce((total, item) => total + item.quantity, 0)
             }
-              
+
+        case "UPDATE_QTY": 
+            if(action.payload.quantity === 0){
+                return reducer(state, {
+                    type: "REMOVE_ITEM", 
+                    payload: { id: action.payload.id }
+                }
+            )}
+            const updatedQuantitiesItems = state.items.map(item => 
+                item.id === action.payload.id
+                ? { ...item, quantity: action.payload.quantity }
+                : item
+            )
+
+            return {
+                items: updatedQuantitiesItems, 
+                totalAmount: updatedQuantitiesItems.reduce((total, item) => total + item.price * item.quantity, 0),
+                totalItems: updatedQuantitiesItems.reduce((total, item) => total + item.quantity, 0)
+            }
+
+        case "CLEAR_CART": 
+            return initialState
+            
         default: 
             return state
     }
@@ -73,17 +94,19 @@ export const ShoppingCartWithReducer = () => {
                     state.totalItems === 0 ? 
                         <p>Cart is empty</p>  : 
                         state.items.map(item => (
-                            <div>
+                            <div key={item.id}>
                                 <p>{item.name} - {item.price} x {item.quantity}</p>
-                                <button onClick={() => dispatch({type: "REMOVE_ITEM", payload: { ...item }})}>Remove item</button>
+                                <button onClick={() => dispatch({ type: 'UPDATE_QTY', payload: { id: item.id, quantity: item.quantity - 1 }})}>-</button>
+                                <button onClick={() => dispatch({ type: 'UPDATE_QTY', payload: { id: item.id, quantity: item.quantity + 1 }})}>+</button>
+                                <button onClick={() => dispatch({ type: "REMOVE_ITEM", payload: { ...item }})}>Remove item</button>
                             </div>
                         ))
                         
                 }
                 </div>
                 <h3>Total Items: {state.totalItems} </h3>
-                <h3>Total amount: ${state.totalAmount.toFixed(2)} </h3>
-                
+                <h3>Total Amount: ${state.totalAmount.toFixed(2)} </h3>
+                <button onClick={() => dispatch({ type: "CLEAR_CART" })}>Clear Cart</button>
             </div>
         </div>
     )

@@ -692,9 +692,54 @@ const dispatch = (action) => {
 - the state remains the same and `action` returned form dispatch is queued in the updater queue
 - The dispatch funciton is completed
 
+## Update Quantity in Shopping Cart 
+The update quantity has the `+` and `-` buttons for increment and decrement respectively 
+
+- You want to update an item so you'd need it's `id`
+- The quantity would change so you'd also need `quantity` 
+
+So when to call the `dispatch(action)` to execute an action 
+```javascript
+  <button 
+      onClick={() => dispatch({ 
+        type: 'UPDATE_QTY', 
+        payload: { id: item.id, quantity: item.quantity - 1  }
+        })}
+  >-</button>
+```
+
+We then use the `id` to find the item and when we do we'd update the `quantity`
+```javascript
+  const updatedQuantitiesItems = state.items.map(item => 
+    item.id === action.payload.id
+      ? { ...item, quantity: action.payload.quantity }
+      : item
+  )
+```
+whether we increase of decrease it, is determined by `quantiy: item.quantiy - 1}` it can also be `quantiy: item.quantiy + 1}`
+
+So when the `UPDATE_QTY` action receives it, it spreads the items and update the quantity using `item.quantiy - 1` i.e decreasing the quanity by 1
+
+This value is used on the line ` { ...item, quantity: action.payload.quantity }`
+
+```javascript
+  if(action.payload.quantity === 0){
+      return reducer(state, {
+          type: "REMOVE_ITEM", 
+          payload: { id: action.payload.id }
+      }
+  )}
+```
+This part tells you if the quantity is 0, then don't display it at all, but the logic isn't handled by the `UPDATED_QTY` but by the `REMOVE_ITEM`
+
+I still need to understand why we are recursively called the reducer 
 
 
 
+### Errors 
+```
+react-dom_client.js?v=2e4d8ef5:4598 Uncaught Error: Objects are not valid as a React child (found: object with keys {id, name, price, quantity}). If you meant to render a collection of children, use an array instead.
+```
 
 
 
