@@ -741,7 +741,9 @@ I still need to understand why we are recursively called the reducer
 react-dom_client.js?v=2e4d8ef5:4598 Uncaught Error: Objects are not valid as a React child (found: object with keys {id, name, price, quantity}). If you meant to render a collection of children, use an array instead.
 ```
 
+### 
 
+Lazy initialization
 
 ## Question
 
