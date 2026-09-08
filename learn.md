@@ -650,20 +650,7 @@ const reducer = (state, action) => {
 ### Component
 ```javascript
 export const CounterWithReducer = () => {
-    const [state, dispatch] = useReducer(
-        (state, action) => {
-            switch(action){
-                case "increment":
-                    return state + 1
-                case "decrement": 
-                    return state - 1
-                case "reset": 
-                    return initialState;
-                default: 
-                    return state;
-            }
-        }
-        , initialState)
+    const [state, dispatch] = useReducer(reducer, initialState)
     return(
         <div>
             <h2>{state}</h2>
@@ -688,9 +675,53 @@ const dispatch = (action) => {
 - JSX is returned
 - You click the button 
 - we enter the trigger phase
-- It calls the `dispatch(action)` and updates action based on the button clicked and returns it 
+- It calls the `dispatch(action)` 
+- updates action based on the button clicked and returns it 
 - the state remains the same and `action` returned form dispatch is queued in the updater queue
 - The dispatch funciton is completed
+
+### Very importpoint to Note 
+```javascript
+  const [state, dispatch] = useReducer(reducer, initialState)
+```
+It's not only the `state` and `dispatch` that are part of the equation
+
+`useReducer()` returns reducer and intial state at the top like this, but the difference between what react does internally and having them inside is that `initialCount` and `reducer` are not created on every render only the first 
+
+```javascript
+import { useReducer } from "react"
+
+
+
+export const CounterWithInit = () => {
+    const initialCount = 0
+
+     const reducer = (state, action) => {
+        switch(action){
+            case "increase": 
+                return state + 1
+            case "decrease": 
+                return state - 1
+            case "reset": 
+                return initialCount
+            default: 
+                return state
+        }
+    }
+
+    const [count, dispatch] = useReducer(reducer, initialCount)
+
+    console.log(initialCount)
+    return(
+        <div>
+            <h2>Count: {count}</h2>
+            <button onClick={() => dispatch("decrease")}>decrease</button>
+            <button onClick={() => dispatch("reset")}>reset</button>
+            <button onClick={() => dispatch("increase")}>increase</button>
+        </div>
+    )
+}
+```
 
 ## Update Quantity in Shopping Cart 
 The update quantity has the `+` and `-` buttons for increment and decrement respectively 
@@ -734,16 +765,193 @@ This part tells you if the quantity is 0, then don't display it at all, but the 
 
 I still need to understand why we are recursively called the reducer 
 
-
-
 ### Errors 
 ```
 react-dom_client.js?v=2e4d8ef5:4598 Uncaught Error: Objects are not valid as a React child (found: object with keys {id, name, price, quantity}). If you meant to render a collection of children, use an array instead.
 ```
 
-### 
+## Lazy initialization
+Lazy initialization means waiting until a value is actually needed before creating or calculating it 
+The normal initializaion 
+```javascript
+const data = expensiveCalculation();
+```           
+the function is called immediately - it doesn't wait for any action to take place 
 
-Lazy initialization
+Lazy initialization 
+```javascript 
+const data = () => expensiveCalculation();
+```
+The function is called only when needed
+
+How lazy initialization works 
+- We render component 
+- check whether an initial state exist 
+- if yes use it 
+- If NO, call the initializer to initialize it 
+- continue with the new found initial state
+- render the jsx 
+
+```
+1. Component is called
+        ↓
+2. useState() is reached
+        ↓
+3. Does React already have state for this hook?
+        ↓
+   ┌───────────────┴───────────────┐
+   │                               │
+  YES                             NO
+   │                               │
+   ↓                               ↓
+Reuse existing state       Call initializer
+   │                               │
+   │                               ↓
+   │                        Store the result
+   │                               │
+   └───────────────┬───────────────┘
+                   ↓
+          Component continues
+                   ↓
+            Returns JSX
+                   ↓
+          React commits JSX
+```
+
+### When to use lazy initialization 
+- Reading initial state from localStorage
+- Expensive Calculation 
+- Parsing stored data 
+- Generating an initial value 
+```javascript 
+const [id, setId] = useState(() => generateId());
+```
+Or a randomly generated value 
+```javascript
+const [number, setNumber] = useState(() => Math.random());
+```
+NOTE: the main point of using lazy initialization is when you don't have the raw value, and might have to compute it, retrieve etc
+
+Image generating a value takes time like `math.random` when you use normal intialization every time you call it, while in lazy initialization you call it once to set the value and the next render it doesn't have to run that expensive function again 
+
+
+## useState() and useReducer()
+`useState()` is actually built on top of `useReducer()` 
+
+This is the code for creating it 
+
+```javascript
+function useStateCustom(initialValue) {
+        const reducer = (state, action) => {
+            return action;
+        };
+
+        const [state, dispatch] = useReducer(reducer, initialValue);
+
+        const setState = (newValue) => {
+            dispatch(newValue);
+        };
+
+        return [state, setState];
+    }
+```
+
+To actually understand how it works, we have to use it and and work back to how it was designed 
+
+## How the useReducer does this
+```javascript
+const [count, setCount] = useStateCustom(0)
+```
+when this mounts 
+
+```javascript
+  function useStateCustom(0){
+    // reducer is created NOT called to no action is returned
+
+    // useReducer is called 
+    const [state, dispatch] = useReducer(reducer, initialValue);
+
+    // state = initialValue -> without the help of reducer
+    // dispatch - function is declared 
+
+  }
+
+  // setState is also declared 
+
+  // we get back the [state, setState] -> [count, setCount]
+```
+when we eventually call the `setCount(count + 1)` 
+```javascript 
+ const setState = (0+1) => {
+      dispatch(0+1);
+  };
+```
+The `dispatch` function is designed to send `action` which is usually the second argument, so action gets assigned 1
+
+- so we receive (0, 1) -> (state, action)
+- and return action = 1
+- Note whatever reducer returns is the newState, even though in our code it returned action
+
+
+
+## Solve prop drilling - use context
+
+We used `props` to provide information of a `parent` component to a `child` component but some case props fails or becomes difficult to manage 
+
+if these we the levels of relationship 
+``` 
+App -> Header -> NavigationBar -> UserMenu -> Avatar
+```
+If the app has a value like `name` and wants to send it to the `Avatar` component it would flow 
+```
+App -> Header ->.... -> Avatar
+```
+and if updates like the App wants to include `email` in what has to be sent it has to take that same route which is not - inefficient
+- prone to errors
+- difficult to manage
+
+instead we use `useContext` to broadcast that value to all its `children` and `great-grand chidren`
+
+
+### App component
+```javascript 
+import { createContext } from 'react'
+
+const UserContext = createContext()
+const App = () => {   
+    const user = {
+        name: "Bruce Wayne", 
+        role: "admin", 
+        theme: "dark"
+    }
+    return ( 
+        <UserContext value={user}>
+            <div>
+                <h1>Dashboard</h1>
+                <Header/>
+            </div>
+        </UserContext>
+    )
+}
+```
+### Avatar Component
+
+```javascript
+import { useContext } from "react"
+import { UserContext } from  "./UserContext"
+
+export const Avatar = () => {
+    const user = useContext(UserContext)
+    return <p>Welcome, {user.name}!</p>
+}
+```
+
+We created a `UserContext` and use the `UserContext` 
+```javascript
+const user = useContext(UserContext)
+```
+
+
 
 ## Question
 
@@ -753,3 +961,5 @@ Lazy initialization
 4. What's the essence of strictmode
 5. What are hooks
 6. in the counter project why does `++count` behave differently from `count++`
+7. Lazy initialization and updater function 
+

@@ -1,38 +1,29 @@
-import { useReducer } from 'react'
+import { useReducer } from "react"
 
-let initialState = 0;
-const reducer = (currState, action) => {
-    switch(action){
-        case "decrease":
-            return currState - 1
-        case "increase": 
-            return currState + 1
-        case "reset": 
-            return initialState
-        default: 
-            return currState
-    }
-}
 
-const init = (initialValue) => {
-    console.log("init funciton called - this only runs once"); 
 
-    const savedCount = localStorage.getItem("count")
-    if(savedCount !== null){
-        console.log("Found saved count: ", savedCount)
-        return parseInt(savedCount)
-    }
-
-    console.log("No saved count, using initial value: ", initialValue)
-    return initialValue
-
-}
 export const CounterWithInit = () => {
-    const [currState, dispatch] = useReducer(reducer, initialState, init)
+    const initialCount = 0
 
+     const reducer = (state, action) => {
+        switch(action){
+            case "increase": 
+                return state + 1
+            case "decrease": 
+                return state - 1
+            case "reset": 
+                return initialCount
+            default: 
+                return state
+        }
+    }
+
+    const [count, dispatch] = useReducer(reducer, initialCount)
+
+    console.log(initialCount)
     return(
         <div>
-            <h1>{currState}</h1>
+            <h2>Count: {count}</h2>
             <button onClick={() => dispatch("decrease")}>decrease</button>
             <button onClick={() => dispatch("reset")}>reset</button>
             <button onClick={() => dispatch("increase")}>increase</button>
