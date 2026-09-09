@@ -952,6 +952,19 @@ const user = useContext(UserContext)
 ```
 
 
+### New ES6 Feature 
+If a `key` and `value` have same name, you don't need to set the value
+
+```javascript
+const user = "jerry"
+
+const setUser = () => {}
+
+const Person = {
+    user, 
+    setUser
+}
+```
 
 ## Question
 

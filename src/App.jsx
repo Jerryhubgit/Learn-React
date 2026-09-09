@@ -9,22 +9,23 @@ import { CounterWithInit } from "./CounterWIthInit"
 import { Header } from "./Header"
 import { UserContext } from "./UserContext"
 import './index.css'
+import { UserContextProvider } from "./UserContextProvider"
+
+import { useState } from 'react'
 
 function App(){
+    // App -> Header -> NavigationBar -> UserMenu -> Avatar
 
-    const user = {
-        name: "Bruce Wayne", 
-        role: "admin", 
-        theme: "dark"
-    }
+
     return (
         <>  
-            <UserContext value={user}>
+            <UserContextProvider>
                 <div>
-                    <h1>Dashboard</h1>
+                    <h1>App</h1>
                     <Header/>
                 </div>
-            </UserContext>
+            </UserContextProvider>
+           
             {/* <CounterWithInit /> */}
             {/* <ShoppingCartWithReducer /> */}
             {/* <CounterWithReducer />

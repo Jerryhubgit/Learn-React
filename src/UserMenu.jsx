@@ -1,12 +1,11 @@
+import { Avatar } from './Avatar'
 
-import { Avatar } from "./Avatar" 
-
-export const UserMenu = () => { 
+export const UserMenu = ({ user }) => {
 
     return (
         <div>
-            <h4>User Menu </h4>
-            <Avatar />
+            <h3>User Menu</h3>
+            <Avatar user={user} /> 
         </div>
     )
 }

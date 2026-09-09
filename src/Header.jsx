@@ -1,13 +1,11 @@
-import { NavigationBar } from "./NavigationBar"
+import { NavigationBar } from  "./NavigationBar"
 
+export const Header = ({ user }) => {
 
-export const Header = () => {
-
-
-    return (
-        <header>
+    return ( 
+       <div>
             <h2>Header</h2>
-            <NavigationBar />
-        </header>
+            <NavigationBar user={user} />
+       </div> 
     )
 }
