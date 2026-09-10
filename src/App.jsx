@@ -8,18 +8,17 @@ import { ShoppingCartWithReducer } from "./ShoppingCartWithReducer"
 import { CounterWithInit } from "./CounterWIthInit"
 import { Header } from "./Header"
 import { UserContext } from "./UserContext"
-import './index.css'
 import { UserContextProvider } from "./UserContextProvider"
+import './index.css'
 
 import { useState } from 'react'
 
 function App(){
     // App -> Header -> NavigationBar -> UserMenu -> Avatar
 
-
     return (
         <>  
-            <UserContextProvider>
+            <UserContextProvider >
                 <div>
                     <h1>App</h1>
                     <Header/>

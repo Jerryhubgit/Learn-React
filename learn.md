@@ -975,4 +975,5 @@ const Person = {
 5. What are hooks
 6. in the counter project why does `++count` behave differently from `count++`
 7. Lazy initialization and updater function 
+8. children props 
 
