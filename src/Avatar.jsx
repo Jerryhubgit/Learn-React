@@ -1,7 +1,10 @@
 import { useContext } from 'react'
 import { UserContext } from './UserContext'
 
-export const Avatar = () => {
+export const Avatar = ({ isLoading = false }) => {
+    if(isLoading){
+        return <p>Loading user data...</p>
+    }
     const { user, setUser } = useContext(UserContext)
 
     const handleToggle = () => {

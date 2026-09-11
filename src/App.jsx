@@ -9,6 +9,7 @@ import { CounterWithInit } from "./CounterWIthInit"
 import { Header } from "./Header"
 import { UserContext } from "./UserContext"
 import { UserContextProvider } from "./UserContextProvider"
+import { StopWatch } from "./StopWatch"
 import './index.css'
 
 import { useState } from 'react'
@@ -18,6 +19,7 @@ function App(){
 
     return (
         <>  
+            <StopWatch />
             <UserContextProvider >
                 <div>
                     <h1>App</h1>
